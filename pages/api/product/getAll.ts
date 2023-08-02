@@ -1,8 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from "next"
-import {PrismaClient} from "@prisma/client"
-
-// Loading prisma client
-let prisma = new PrismaClient()
+import prisma from "../../../lib/prisma";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
 

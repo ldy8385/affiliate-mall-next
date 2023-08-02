@@ -1,10 +1,8 @@
 import type {NextApiRequest, NextApiResponse} from "next"
 import {hashPassword} from "../../../lib/auth"
-import {PrismaClient} from "@prisma/client"
+import prisma from "../../../lib/prisma";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Loading prisma client
-  let prisma = new PrismaClient()
 
   if (req.method !== 'POST') {
     return

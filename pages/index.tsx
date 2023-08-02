@@ -1,10 +1,10 @@
-import {Carousel, Col, Container, Row} from "react-bootstrap";
+import {Button, Card, Carousel, Col, Container, Row} from "react-bootstrap";
 import React from 'react'
 import {UserInput} from "./email-sign-in";
 
 
 export default function Home() {
-  // const [products, setProducts] = React.useState<Array<GetProductOut> | undefined>()
+  const [products, setProducts] = React.useState<Array<any> | undefined>()
   const [isLoading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState(null)
 
@@ -31,6 +31,8 @@ export default function Home() {
     }
 
     console.log(data)
+    setProducts(data)
+
   }
 
   const handleClickProduct = (productId: number) => {
@@ -88,22 +90,22 @@ export default function Home() {
               <Col>
                 <div>
                   <Row>
-                    {/*{*/}
-                    {/*  products && products.map(item => (*/}
-                    {/*      <Col className="d-flex justify-content-center">*/}
-                    {/*        <Card style={{ width: '18rem' }}>*/}
-                    {/*          <Card.Img variant="top" src={item.thumbnail_image_url} />*/}
-                    {/*          <Card.Body>*/}
-                    {/*            <Card.Title>{item.name}</Card.Title>*/}
-                    {/*            <Card.Text>*/}
-                    {/*              {item.price}*/}
-                    {/*            </Card.Text>*/}
-                    {/*            <Button variant="primary" onClick={() => handleClickProduct(item.id)}>Go somewhere</Button>*/}
-                    {/*          </Card.Body>*/}
-                    {/*        </Card>*/}
-                    {/*      </Col>*/}
-                    {/*  ))*/}
-                    {/*}*/}
+                    {
+                      products && products.map(item => (
+                          <Col className="d-flex justify-content-center">
+                            <Card style={{ width: '18rem' }}>
+                              <Card.Img variant="top" src={item.thumbnailUrl} />
+                              <Card.Body>
+                                <Card.Title>{item.name}</Card.Title>
+                                <Card.Text>
+                                  {item.price}
+                                </Card.Text>
+                                <Button variant="primary" onClick={() => handleClickProduct(item.id)}>Go somewhere</Button>
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                      ))
+                    }
                   </Row>
                 </div>
               </Col>
