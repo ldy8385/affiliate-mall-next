@@ -2,22 +2,28 @@ import type {NextApiRequest, NextApiResponse} from "next"
 import prisma from "../../../lib/prisma"
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-
   if (req.method !== 'GET') {
     return
   }
 
-  const result = await prisma.product.findMany({
+  const id = parseInt(req.query.id)
+  const result = await prisma.product.findUnique({
+    where: {
+      id: id,
+    },
     select: {
       id: true,
       name: true,
       price: true,
       thumbnailUrl: true,
       detailUrl: true,
+      purchases: true,
       createdAt: true,
       updatedAt: true,
     }
   })
+
+
 
   if (result) {
     res.status(200).json(result)

@@ -1,9 +1,11 @@
 import {Button, Card, Carousel, Col, Container, Row} from "react-bootstrap";
 import React from 'react'
 import {UserInput} from "./email-sign-in";
+import {useRouter} from "next/router";
 
 
 export default function Home() {
+  const router = useRouter()
   const [products, setProducts] = React.useState<Array<any> | undefined>()
   const [isLoading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState(null)
@@ -22,21 +24,18 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    })
 
-    const data = await response.json();
+    const data = await response.json()
 
     if (!response.ok) {
-      throw new Error(data.message || "Something went wrong!");
+      throw new Error(data.message || "Something went wrong!")
     }
-
-    console.log(data)
     setProducts(data)
-
   }
 
   const handleClickProduct = (productId: number) => {
-    // navigate(`/detail/${productId}`)
+    router.push(`/product/${productId}`)
   }
 
   return (
