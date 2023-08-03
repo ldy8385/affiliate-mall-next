@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  userId    String     @unique
+  name      String
+  password  String
+  phone     String
+  purchases Purchase[]
+  createdAt DateTime   @default(now()) @map(name: "created_at")
+  updatedAt DateTime   @updatedAt @map(name: "updated_at")
+}
+
+model Product {
+  id           Int        @id @default(autoincrement())
+  name         String
+  price        Int
+  options      Option[]
+  thumbnailUrl String
+  detailUrl    String
+  purchases    Purchase[]
+  createdAt    DateTime   @default(now()) @map(name: "created_at")
+  updatedAt    DateTime   @updatedAt @map(name: "updated_at")
+}
+
+model Option {
+  id        Int        @id @default(autoincrement())
+  name      String
+  stock     Int
+  product   Product    @relation(fields: [productId], references: [id])
+  productId Int
+  createdAt DateTime   @default(now()) @map(name: "created_at")
+  updatedAt DateTime   @updatedAt @map(name: "updated_at")
+  Purchase  Purchase[]
+}
+
+model Purchase {
+  id         Int      @id @default(autoincrement())
+  quantity   Int
+  status     String
+  customer   User     @relation(fields: [customerId], references: [id])
+  customerId Int
+  option     Option   @relation(fields: [optionId], references: [id])
+  optionId   Int
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  Product    Product? @relation(fields: [productId], references: [id])
+  productId  Int?
+}
