@@ -9,7 +9,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const id = parseInt(req.query.id)
   const result = await prisma.option.findMany({
     where: {
-      id: id,
+      productId: id,
     },
     select: {
       id: true,

@@ -6,31 +6,32 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  userId    String     @unique
-  name      String
-  password  String
-  phone     String
-  purchases Purchase[]
-  createdAt DateTime   @default(now()) @map(name: "created_at")
-  updatedAt DateTime   @updatedAt @map(name: "updated_at")
+  id         Int        @id @default(autoincrement())
+  userId     String     @unique
+  name       String
+  password   String
+  phone      String
+  purchases  Purchase[]
+  createdAt  DateTime   @default(now()) @map(name: "created_at")
+  updatedAt  DateTime?   @updatedAt @map(name: "updated_at")
 }
 
 model Product {
   id           Int        @id @default(autoincrement())
   name         String
+  desc         String?
   price        Int
   options      Option[]
   thumbnailUrl String
   detailUrl    String
   purchases    Purchase[]
   createdAt    DateTime   @default(now()) @map(name: "created_at")
-  updatedAt    DateTime   @updatedAt @map(name: "updated_at")
+  updatedAt    DateTime?  @updatedAt @map(name: "updated_at")
 }
 
 model Option {
@@ -40,7 +41,7 @@ model Option {
   product   Product    @relation(fields: [productId], references: [id])
   productId Int
   createdAt DateTime   @default(now()) @map(name: "created_at")
-  updatedAt DateTime   @updatedAt @map(name: "updated_at")
+  updatedAt DateTime?   @updatedAt @map(name: "updated_at")
   Purchase  Purchase[]
 }
 
@@ -53,7 +54,7 @@ model Purchase {
   option     Option   @relation(fields: [optionId], references: [id])
   optionId   Int
   createdAt  DateTime @default(now()) @map(name: "created_at")
-  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  updatedAt  DateTime? @updatedAt @map(name: "updated_at")
   Product    Product? @relation(fields: [productId], references: [id])
   productId  Int?
 }

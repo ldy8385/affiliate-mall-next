@@ -11,6 +11,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     select: {
       id: true,
       name: true,
+      desc: true,
       price: true,
       thumbnailUrl: true,
       detailUrl: true,
