@@ -2,6 +2,7 @@ import {Button, Card, Carousel, Col, Container, Row} from "react-bootstrap";
 import React from 'react'
 import {UserInput} from "./email-sign-in";
 import {useRouter} from "next/router";
+import Image from 'next/image'
 
 
 export default function Home() {
@@ -46,7 +47,7 @@ export default function Home() {
               <Col>
                 <Carousel>
                   <Carousel.Item>
-                    <img
+                    <Image
                         className="d-block w-100"
                         src="https://mdbootstrap.com/img/Photos/Slides/img%20(45).webp"
                         alt="First slide"
@@ -57,7 +58,7 @@ export default function Home() {
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item>
-                    <img
+                    <Image
                         className="d-block w-100"
                         src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).webp"
                         alt="Second slide"
@@ -69,7 +70,7 @@ export default function Home() {
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item>
-                    <img
+                    <Image
                         className="d-block w-100"
                         src="https://mdbootstrap.com/img/Photos/Slides/img%20(129).webp"
                         alt="Third slide"
@@ -91,18 +92,18 @@ export default function Home() {
                   <Row>
                     {
                       products && products.map(item => (
-                          <Col className="d-flex justify-content-center">
-                            <Card style={{ width: '18rem' }}>
-                              <Card.Img variant="top" src={item.thumbnailUrl} />
-                              <Card.Body>
-                                <Card.Title>{item.name}</Card.Title>
-                                <Card.Text>
-                                  {item.price}
-                                </Card.Text>
-                                <Button variant="primary" onClick={() => handleClickProduct(item.id)}>Go somewhere</Button>
-                              </Card.Body>
-                            </Card>
-                          </Col>
+                        <Col className="d-flex justify-content-center" key={item.id}>
+                          <Card style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src={item.thumbnailUrl} />
+                            <Card.Body>
+                              <Card.Title>{item.name}</Card.Title>
+                              <Card.Text>
+                                {item.price}
+                              </Card.Text>
+                              <Button variant="primary" onClick={() => handleClickProduct(item.id)}>Go somewhere</Button>
+                            </Card.Body>
+                          </Card>
+                        </Col>
                       ))
                     }
                   </Row>

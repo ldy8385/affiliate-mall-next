@@ -33,14 +33,6 @@ export default function ProductDetail() {
   const [optionInput, setOptionInput] = useState()
   const [quantity, setQuantity] = useState(1)
 
-  useEffect(() => {
-    if (id) getProduct()
-  }, [id])
-
-  useEffect(() => {
-    if (product) getOptions()
-  }, [product])
-
   const getProduct = async () => {
     const response = await fetch(`/api/product/${id}`, {
       method: "GET",
@@ -70,6 +62,14 @@ export default function ProductDetail() {
       throw new Error(data.message || "Something went wrong!")
     }
   }
+
+  useEffect(() => {
+    if (id) getProduct()
+  }, [id])
+
+  useEffect(() => {
+    if (product) getOptions()
+  }, [product])
 
   const handleQuantityChange = (e: React.SyntheticEvent<HTMLInputElement>) => {
     const {value} = e.currentTarget
